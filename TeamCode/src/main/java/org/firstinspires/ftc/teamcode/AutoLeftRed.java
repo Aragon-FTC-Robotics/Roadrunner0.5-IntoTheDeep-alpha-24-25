@@ -13,6 +13,8 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
+import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
+
 @Autonomous(name="v\uD83D\uDCA3\uD83D\uDCA3\uD83D\uDCA3\uD83D\uDCA3\uD83D\uDCA3", group="Autopathred")
 public class AutoLeftRed extends LinearOpMode {
     double openPos = 0.85;
@@ -36,7 +38,7 @@ public class AutoLeftRed extends LinearOpMode {
     double highpos = 0.612;
     double wwallpos = 0.776;
     double clippos = 0.990;
-    double grabpos = 0.755;
+    double grabpos = 0.694;
 
     Servo claw;
     DcMotor bar;
@@ -55,75 +57,101 @@ public class AutoLeftRed extends LinearOpMode {
         slideLeft = hardwareMap.get(DcMotor.class, "slideLeft");
         slideRight = hardwareMap.get(DcMotor.class, "slideRight");
         wristServo = hardwareMap.get(Servo.class, "wristServo");
-        Trajectory myTrajectory = drive.trajectoryBuilder(startPose)
-                .addDisplacementMarker(() -> {
+        TrajectorySequence myTrajectory = drive.trajectorySequenceBuilder(startPose)
+                .addTemporalMarker(() -> {
                     clawClose();
                 })
-                .splineToConstantHeading(new Vector2d(-5, -35),Math.toRadians(90)) //to front of clip
-                .addDisplacementMarker(() -> {
+                .waitSeconds(1)
+                .splineToConstantHeading(new Vector2d(-5, -39),Math.toRadians(90)) //to front of clip
+                .addTemporalMarker(() -> {
                     clipDown();
                 }) //bar clippos
-                .splineToConstantHeading(new Vector2d(-5, -33),Math.toRadians(90)) // to lcip pos
-                .addDisplacementMarker(() -> {
+                .waitSeconds(1)
+                .splineToConstantHeading(new Vector2d(-5, -25),Math.toRadians(90)) // to lcip pos
+                .addTemporalMarker(() -> {
                     clipUp();
-                }) //bar upclippos
-                .splineToConstantHeading(new Vector2d(-5, -35),Math.toRadians(90))
-                .addDisplacementMarker(() -> {
+                }) //bar upclippos,
+                .waitSeconds(1)
+                .splineToConstantHeading(new Vector2d(-5, -34.5),Math.toRadians(90))
+                .addTemporalMarker(() -> {
+                    clawOpen();
+                }) // claw open
+                .waitSeconds(1)
+                .addTemporalMarker(() -> {
                     groundThing();
-                }) // bar ground and clip open
-                .splineToSplineHeading(new Pose2d(-48, -37, Math.toRadians(90)), Math.toRadians(90)) // 1st neutral sample
-                .addDisplacementMarker(() -> {
+                }) // bar ground
+                .waitSeconds(1)
+                .splineToSplineHeading(new Pose2d(-48, -32, Math.toRadians(90)), Math.toRadians(90)) // 1st neutral sample
+                .addTemporalMarker(() -> {
                     clawClose();
                 }) // claw closed
-                .splineToSplineHeading(new Pose2d(-53, -53, Math.toRadians(45)),Math.toRadians(90)) //to bucket
-                .addDisplacementMarker(() -> {
+                .waitSeconds(1)
+                .splineToSplineHeading(new Pose2d(-50, -45, Math.toRadians(45)),Math.toRadians(90)) //to bucket
+                .addTemporalMarker(() -> {
                     highBucket();
-                    clawOpen();
                 }) // Bar up and claw open
-                .addDisplacementMarker(() -> {
+                .waitSeconds(1)
+                .addTemporalMarker(() -> {
+                    clawOpen();
+                }) //openclaw
+                .waitSeconds(0.2)
+                .addTemporalMarker(() -> {
                     groundThing();
                 }) //bar ground
-                .splineToSplineHeading(new Pose2d(-58, -37, Math.toRadians(90)),Math.toRadians(90)) // 2nd neutral sample
-                .addDisplacementMarker(() -> {
+                .waitSeconds(1)
+                .splineToSplineHeading(new Pose2d(-58, -32, Math.toRadians(90)),Math.toRadians(90)) // 2nd neutral sample
+                .addTemporalMarker(() -> {
                     clawClose();
                 }) // claw closed
-                .splineToSplineHeading(new Pose2d(-53, -53, Math.toRadians(45)),Math.toRadians(90)) //to bucket
-                .addDisplacementMarker(() -> {
+                .waitSeconds(1)
+                .splineToSplineHeading(new Pose2d(-50, -45, Math.toRadians(45)),Math.toRadians(90)) //to bucket
+                .addTemporalMarker(() -> {
                     highBucket();
-                    clawOpen();
                 }) // Bar up and claw open
-                .addDisplacementMarker(() -> {
+                .waitSeconds(1)
+                .addTemporalMarker(() -> {
+                    clawOpen();
+                }) //openclaw
+                .waitSeconds(0.2)
+                .addTemporalMarker(() -> {
                     groundThing();
                 }) //bar ground
-                .splineToSplineHeading(new Pose2d(-57, -33, Math.toRadians(140)),Math.toRadians(90)) //3rd neutral sample
-                .addDisplacementMarker(() -> {
+                .waitSeconds(1)
+                .splineToSplineHeading(new Pose2d(-57, -28, Math.toRadians(140)),Math.toRadians(90)) //3rd neutral sample
+                .addTemporalMarker(() -> {
                     clawClose();
                 }) // claw closed
-                .splineToSplineHeading(new Pose2d(-53, -53, Math.toRadians(45)),Math.toRadians(180)) //to bucket
-                .addDisplacementMarker(() -> {
+                .waitSeconds(1)
+                .splineToSplineHeading(new Pose2d(-50, -45, Math.toRadians(45)),Math.toRadians(180)) //to bucket
+                .addTemporalMarker(() -> {
                     highBucket();
-                    clawOpen();
                 }) // Bar up and claw open
-                .addDisplacementMarker(() -> {
+                .waitSeconds(1)
+                .addTemporalMarker(() -> {
+                    clawOpen();
+                }) //openclaw
+                .waitSeconds(0.2)
+                .addTemporalMarker(() -> {
                     groundThing();
                 }) //bar ground
-                .splineToSplineHeading(new Pose2d(-60, -45, Math.toRadians(0)),Math.toRadians(45))
+                .waitSeconds(1)
+                .splineToSplineHeading(new Pose2d(-57, -37, Math.toRadians(0)),Math.toRadians(45))
                 .build();
 
         waitForStart();
 
         if(isStopRequested()) return;
 
-        drive.followTrajectory(myTrajectory);
+        drive.followTrajectorySequence(myTrajectory);
     }
     public void clawClose() {claw.setPosition(closePos);}
     public void clawOpen() {claw.setPosition(openPos);}
-    public void barParallel() {bar.setTargetPosition(parallelpos);bar.setMode(DcMotor.RunMode.RUN_TO_POSITION);}
-    public void barWall() {bar.setTargetPosition(wallpos);bar.setMode(DcMotor.RunMode.RUN_TO_POSITION);}
-    public void barStart() {bar.setTargetPosition(startpos);bar.setMode(DcMotor.RunMode.RUN_TO_POSITION);}
-    public void barClipDown() {bar.setTargetPosition(clipposDOWN);bar.setMode(DcMotor.RunMode.RUN_TO_POSITION);}
-    public void barClipUp() {bar.setTargetPosition(clipposUP);bar.setMode(DcMotor.RunMode.RUN_TO_POSITION);}
-    public void barGround() {bar.setTargetPosition(groundpos);bar.setMode(DcMotor.RunMode.RUN_TO_POSITION);}
+    public void barParallel() {bar.setTargetPosition(parallelpos);bar.setMode(DcMotor.RunMode.RUN_TO_POSITION);bar.setPower(0.6);}
+    public void barWall() {bar.setTargetPosition(wallpos);bar.setMode(DcMotor.RunMode.RUN_TO_POSITION);bar.setPower(0.6);}
+    public void barStart() {bar.setTargetPosition(startpos);bar.setMode(DcMotor.RunMode.RUN_TO_POSITION);bar.setPower(0.6);}
+    public void barClipDown() {bar.setTargetPosition(clipposDOWN);bar.setMode(DcMotor.RunMode.RUN_TO_POSITION);bar.setPower(0.6);}
+    public void barClipUp() {bar.setTargetPosition(clipposUP);bar.setMode(DcMotor.RunMode.RUN_TO_POSITION);bar.setPower(0.6);}
+    public void barGround() {bar.setTargetPosition(groundpos);bar.setMode(DcMotor.RunMode.RUN_TO_POSITION);bar.setPower(0.6);}
     public void slidesHigh(){
         slideLeft.setTargetPosition(highPos-10);
         slideRight.setTargetPosition(highPos);
@@ -150,7 +178,7 @@ public class AutoLeftRed extends LinearOpMode {
     }
 
     public void highBucket() {
-        barClipUp();
+        barParallel();
         slidesHigh();
         wristHigh();
     }
@@ -163,8 +191,9 @@ public class AutoLeftRed extends LinearOpMode {
         wristClip();
     }
     public void groundThing() {
-        barGround();
-        wristGround();
+        barStart();
+        wristGrab();
+        slidesLow();
     }
 
     public void wristGround() {wristServo.setPosition(groundpos);pos=groundpos;}
