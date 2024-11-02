@@ -90,7 +90,7 @@ public class AutoLeftRed extends LinearOpMode {
                 .addTemporalMarker(() -> {
                     highBucket();
                 }) // Bar up and claw open
-                .waitSeconds(1.2)
+                .waitSeconds(1.5)
                 .addTemporalMarker(() -> {
                     clawOpen();
                 }) //openclaw
@@ -108,7 +108,7 @@ public class AutoLeftRed extends LinearOpMode {
                 .addTemporalMarker(() -> {
                     highBucket();
                 }) // Bar up and claw open
-                .waitSeconds(1.2)
+                .waitSeconds(1.5)
                 .addTemporalMarker(() -> {
                     clawOpen();
                 }) //openclaw
