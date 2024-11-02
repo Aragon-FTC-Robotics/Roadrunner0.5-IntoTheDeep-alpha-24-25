@@ -38,7 +38,7 @@ public class AutoLeftRed extends LinearOpMode {
     double highpos = 0.612;
     double wwallpos = 0.776;
     double clippos = 0.990;
-    double grabpos = 0.675;
+    double grabpos = 0.6725;
 
     Servo claw;
     DcMotor bar;
