@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -115,13 +116,79 @@ public class AutoLeftRed extends LinearOpMode {
     public void highBucket() {
         bar.barClipUp();
         slides.slidesHigh();
-        
+        wrist.wristHigh();
     }
+    public void clipDown() {
+        bar.barClipDown();
+        wrist.wristClip();
+    }
+    public void clipUp() {
+        bar.barClipUp();
+        wrist.wristClip();
+    }
+    public void groundThing() {
+        bar.barGround();
+        wrist.wristGround();
+    }
+
     public void runOpMode() {
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
-        Trajectory myTrajectory = drive.trajectoryBuilder(new Pose2d())
-                .strafeRight(10)
-                .forward(5)
+        Pose2d startPose = new Pose2d(-23.5, -60, Math.toRadians(-90));
+        drive.setPoseEstimate(startPose);
+
+        Trajectory myTrajectory = drive.trajectoryBuilder(startPose)
+                .addDisplacementMarker(() -> {
+                    claw.clawClose();
+                })
+                .lineToConstantHeading(new Vector2d(-5, -35)) //to front of clip
+                .addDisplacementMarker(() -> {
+                    clipDown();
+                }) //bar clippos
+                .lineToConstantHeading(new Vector2d(-5, -33)) // to lcip pos
+                .addDisplacementMarker(() -> {
+                    clipUp();
+                }) //bar upclippos
+                .lineToConstantHeading(new Vector2d(-5, -35))
+                .addDisplacementMarker(() -> {
+                    groundThing();
+                }) // bar ground and clip open
+                .splineToSplineHeading(new Pose2d(-48, -37, Math.toRadians(90)), Math.toRadians(90)) // 1st neutral sample
+                .addDisplacementMarker(() -> {
+                    claw.clawClose();
+                }) // claw closed
+                .lineToSplineHeading(new Pose2d(-53, -53, Math.toRadians(45))) //to bucket
+                .addDisplacementMarker(() -> {
+                    highBucket();
+                    claw.clawOpen();
+                }) // Bar up and claw open
+                .addDisplacementMarker(() -> {
+                    groundThing();
+                }) //bar ground
+                .lineToLinearHeading(new Pose2d(-58, -37, Math.toRadians(90))) // 2nd neutral sample
+                .addDisplacementMarker(() -> {
+                    claw.clawClose();
+                }) // claw closed
+                .lineToSplineHeading(new Pose2d(-53, -53, Math.toRadians(45))) //to bucket
+                .addDisplacementMarker(() -> {
+                    highBucket();
+                    claw.clawOpen();
+                }) // Bar up and claw open
+                .addDisplacementMarker(() -> {
+                    groundThing();
+                }) //bar ground
+                .lineToSplineHeading(new Pose2d(-57, -33, Math.toRadians(140))) //3rd neutral sample
+                .addDisplacementMarker(() -> {
+                    claw.clawClose();
+                }) // claw closed
+                .lineToSplineHeading(new Pose2d(-53, -53, Math.toRadians(45))) //to bucket
+                .addDisplacementMarker(() -> {
+                    highBucket();
+                    claw.clawOpen();
+                }) // Bar up and claw open
+                .addDisplacementMarker(() -> {
+                    groundThing();
+                }) //bar ground
+                .lineToLinearHeading(new Pose2d(-60, -45, Math.toRadians(0)))
                 .build();
 
         waitForStart();
