@@ -17,27 +17,27 @@ public class MeepMeepTesting {
                 .followTrajectorySequence(drive -> drive.trajectorySequenceBuilder(new Pose2d(-23.5, -60, Math.toRadians(-90)))
                         .lineToConstantHeading(new Vector2d(-5, -35)) //to front of clip
                         .waitSeconds(1) //bar clippos
-                        .lineToConstantHeading(new Vector2d(-5, -33)) // to lcip pos
+                        .splineToConstantHeading(new Vector2d(-5, -33),Math.toRadians(90)) // to lcip pos
                         .waitSeconds(0.5) //bar upclippos
-                        .lineToConstantHeading(new Vector2d(-5, -35))
+                        .splineToConstantHeading(new Vector2d(-5, -35),Math.toRadians(90))
                         .waitSeconds(0.3) // claw open
                         .waitSeconds(0.5) // bar ground
                         .splineToSplineHeading(new Pose2d(-48, -37, Math.toRadians(90)), Math.toRadians(90)) // 1st neutral sample
                         .waitSeconds(0.2) // claw closed
-                        .lineToSplineHeading(new Pose2d(-53, -53, Math.toRadians(45))) //to bucket
+                        .splineToSplineHeading(new Pose2d(-53, -53, Math.toRadians(45)),Math.toRadians(90)) //to bucket
                         .waitSeconds(1) // Bar up and claw open
                         .waitSeconds(1) //bar ground
-                        .lineToLinearHeading(new Pose2d(-58, -37, Math.toRadians(90))) // 2nd neutral sample
+                        .splineToSplineHeading(new Pose2d(-58, -37, Math.toRadians(90)),Math.toRadians(90)) // 2nd neutral sample
                         .waitSeconds(0.2) // claw closed
-                        .lineToSplineHeading(new Pose2d(-53, -53, Math.toRadians(45))) //to bucket
+                        .splineToSplineHeading(new Pose2d(-53, -53, Math.toRadians(45)),Math.toRadians(90)) //to bucket
                         .waitSeconds(1) // Bar up and claw open
                         .waitSeconds(1) // bar ground
-                        .lineToSplineHeading(new Pose2d(-57, -33, Math.toRadians(140))) //3rd neutral sample
+                        .splineToSplineHeading(new Pose2d(-57, -33, Math.toRadians(140)),Math.toRadians(90)) //3rd neutral sample
                         .waitSeconds(0.2) //claw closed
-                        .lineToSplineHeading(new Pose2d(-53, -53, Math.toRadians(45))) //to bucket
+                        .splineToSplineHeading(new Pose2d(-53, -53, Math.toRadians(45)),Math.toRadians(180)) //to bucket
                         .waitSeconds(1) // Bar up and claw open
                         .waitSeconds(1) // bar ground
-                        .lineToLinearHeading(new Pose2d(-60, -45, Math.toRadians(0)))
+                        .splineToSplineHeading(new Pose2d(-60, -45, Math.toRadians(45)),Math.toRadians(45))
                         .build());
 
 
