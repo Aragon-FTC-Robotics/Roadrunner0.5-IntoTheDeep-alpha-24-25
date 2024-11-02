@@ -16,7 +16,7 @@ public class Wrist {
         wristServo = hm.get(Servo.class, "wristServo");
         speed = 0.01;
         pos = 0;
-        groundpos = 0.73;
+        groundpos = 0.69;
         highpos = 0.612;
         wallpos = 0.776;
         clippos = 0.990;
