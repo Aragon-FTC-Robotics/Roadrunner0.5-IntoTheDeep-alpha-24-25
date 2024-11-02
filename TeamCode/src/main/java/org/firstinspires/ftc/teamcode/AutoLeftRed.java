@@ -50,7 +50,11 @@ public class AutoLeftRed extends LinearOpMode {
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
         Pose2d startPose = new Pose2d(-23.5, -60, Math.toRadians(-90));
         drive.setPoseEstimate(startPose);
-
+        claw = hardwareMap.get(Servo.class, "claw1");
+        bar = hardwareMap.get(DcMotor.class, "fourBar");
+        slideLeft = hardwareMap.get(DcMotor.class, "slideLeft");
+        slideRight = hardwareMap.get(DcMotor.class, "slideRight");
+        wristServo = hardwareMap.get(Servo.class, "wristServo");
         Trajectory myTrajectory = drive.trajectoryBuilder(startPose)
                 .addDisplacementMarker(() -> {
                     clawClose();
