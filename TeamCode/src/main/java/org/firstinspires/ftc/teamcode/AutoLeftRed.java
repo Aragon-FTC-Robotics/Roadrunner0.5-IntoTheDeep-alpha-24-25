@@ -109,8 +109,13 @@ class Wrist{
 public class AutoLeftRed extends LinearOpMode {
     HardwareMap hm;
     Claw claw;
+    Bar bar;
+    Slides slides;
+    Wrist wrist;
     public void highBucket() {
-
+        bar.barClipUp();
+        slides.slidesHigh();
+        
     }
     public void runOpMode() {
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
