@@ -15,14 +15,14 @@ import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 
-@Autonomous(name="v\uD83D\uDCA3\uD83D\uDCA3\uD83D\uDCA3\uD83D\uDCA3\uD83D\uDCA3", group="Autopathred")
+@Autonomous(name="Goated Auto", group="Autopathred")
 public class AutoLeftRed extends LinearOpMode {
-    double openPos = 0.85;
+    double openPos = 0.825;
     double closePos = 1;
 
-    int parallelpos = -1100;
+    int parallelpos = -1200;
     int wallpos = -420;
-    int startpos = -130;
+    int startpos = -150;
     int clipposDOWN = -1400;
     int clipposUP = -1250;
     int groundpos = -1750;
@@ -38,7 +38,7 @@ public class AutoLeftRed extends LinearOpMode {
     double highpos = 0.612;
     double wwallpos = 0.776;
     double clippos = 0.990;
-    double grabpos = 0.714;
+    double grabpos = 0.675;
 
     Servo claw;
     DcMotor bar;
@@ -72,7 +72,7 @@ public class AutoLeftRed extends LinearOpMode {
                     clipUp();
                 }) //bar upclippos,
                 .waitSeconds(0.5)
-                .splineToConstantHeading(new Vector2d(-5, -34.5),Math.toRadians(90))
+                .splineToConstantHeading(new Vector2d(-5, -33.5),Math.toRadians(90))
                 .addTemporalMarker(() -> {
                     clawOpen();
                 }) // claw open
@@ -86,11 +86,11 @@ public class AutoLeftRed extends LinearOpMode {
                     clawClose();
                 }) // claw closed
                 .waitSeconds(0.1)
-                .splineToSplineHeading(new Pose2d(-50, -45, Math.toRadians(45)),Math.toRadians(90)) //to bucket
+                .splineToSplineHeading(new Pose2d(-50.7, -45.7, Math.toRadians(45)),Math.toRadians(90)) //to bucket
                 .addTemporalMarker(() -> {
                     highBucket();
                 }) // Bar up and claw open
-                .waitSeconds(1.5)
+                .waitSeconds(1.7)
                 .addTemporalMarker(() -> {
                     clawOpen();
                 }) //openclaw
@@ -103,12 +103,12 @@ public class AutoLeftRed extends LinearOpMode {
                 .addTemporalMarker(() -> {
                     clawClose();
                 }) // claw closed
-                .waitSeconds(1)
-                .splineToSplineHeading(new Pose2d(-50, -45, Math.toRadians(45)),Math.toRadians(90)) //to bucket
+                .waitSeconds(0.6)
+                .splineToSplineHeading(new Pose2d(-50.7, -45.7, Math.toRadians(45)),Math.toRadians(90)) //to bucket
                 .addTemporalMarker(() -> {
                     highBucket();
                 }) // Bar up and claw open
-                .waitSeconds(1.5)
+                .waitSeconds(1.7)
                 .addTemporalMarker(() -> {
                     clawOpen();
                 }) //openclaw
@@ -123,8 +123,8 @@ public class AutoLeftRed extends LinearOpMode {
 
                 }) //clip up
                 .waitSeconds(1)
-                .splineToLinearHeading(new Pose2d(40, -45, Math.toRadians(0)),Math.toRadians(45))
-                .splineToLinearHeading(new Pose2d(40, -50, Math.toRadians(0)),Math.toRadians(0))
+                .splineToLinearHeading(new Pose2d(42, -52, Math.toRadians(0)),Math.toRadians(0))
+                //.splineToLinearHeading(new Pose2d(40, -50, Math.toRadians(0)),Math.toRadians(0))
                 .build();
 
         waitForStart();
