@@ -15,29 +15,19 @@ public class MeepMeepTesting {
                 // Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
                 .setConstraints(60, 60, Math.toRadians(180), Math.toRadians(180), 15)
                 .followTrajectorySequence(drive -> drive.trajectorySequenceBuilder(new Pose2d(-23.5, -60, Math.toRadians(-90)))
-                        .lineToConstantHeading(new Vector2d(-5, -35)) //to front of clip
-                        .waitSeconds(1) //bar clippos
-                        .splineToConstantHeading(new Vector2d(-5, -33),Math.toRadians(90)) // to lcip pos
-                        .waitSeconds(0.5) //bar upclippos
-                        .splineToConstantHeading(new Vector2d(-5, -35),Math.toRadians(90))
-                        .waitSeconds(0.3) // claw open
-                        .waitSeconds(0.5) // bar ground
-                        .splineToSplineHeading(new Pose2d(-48, -37, Math.toRadians(90)), Math.toRadians(90)) // 1st neutral sample
-                        .waitSeconds(0.2) // claw closed
-                        .splineToSplineHeading(new Pose2d(-53, -53, Math.toRadians(45)),Math.toRadians(90)) //to bucket
-                        .waitSeconds(1) // Bar up and claw open
-                        .waitSeconds(1) //bar ground
-                        .splineToSplineHeading(new Pose2d(-58, -37, Math.toRadians(90)),Math.toRadians(90)) // 2nd neutral sample
-                        .waitSeconds(0.2) // claw closed
-                        .splineToSplineHeading(new Pose2d(-53, -53, Math.toRadians(45)),Math.toRadians(90)) //to bucket
-                        .waitSeconds(1) // Bar up and claw open
-                        .waitSeconds(1) // bar ground
-                        .splineToSplineHeading(new Pose2d(-57, -33, Math.toRadians(140)),Math.toRadians(90)) //3rd neutral sample
-                        .waitSeconds(0.2) //claw closed
-                        .splineToSplineHeading(new Pose2d(-53, -53, Math.toRadians(45)),Math.toRadians(180)) //to bucket
-                        .waitSeconds(1) // Bar up and claw open
-                        .waitSeconds(1) // bar ground
-                        .splineToSplineHeading(new Pose2d(-60, -45, Math.toRadians(45)),Math.toRadians(45))
+                        .splineToConstantHeading(new Vector2d(-5, -39),Math.toRadians(90)) //to front of clip
+                        .splineToConstantHeading(new Vector2d(-5, -25),Math.toRadians(90)) // to lcip pos
+                        .splineToConstantHeading(new Vector2d(-5, -34.5),Math.toRadians(90))
+                        .waitSeconds(0.1)
+                        .splineToSplineHeading(new Pose2d(-48, -32, Math.toRadians(90)), Math.toRadians(90)) // 1st neutral sample
+                        .waitSeconds(0.1)
+                        .splineToSplineHeading(new Pose2d(-50, -45, Math.toRadians(45)),Math.toRadians(90)) //to bucket
+                        .waitSeconds(0.5)
+                        .splineToSplineHeading(new Pose2d(-57, -32, Math.toRadians(90)),Math.toRadians(135)) // 2nd neutral sample
+                        .waitSeconds(2)
+                        .splineToSplineHeading(new Pose2d(-50, -45, Math.toRadians(45)),Math.toRadians(90)) //to bucket
+                        .waitSeconds(2)
+                        .splineToSplineHeading(new Pose2d(57, -43, Math.toRadians(0)),Math.toRadians(45))
                         .build());
 
 

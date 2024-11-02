@@ -25,7 +25,7 @@ public class AutoLeftRed extends LinearOpMode {
     int startpos = -130;
     int clipposDOWN = -1400;
     int clipposUP = -1250;
-    int groundpos = -1850;
+    int groundpos = -1750;
 
 
     int highPos = 1200;
@@ -38,7 +38,7 @@ public class AutoLeftRed extends LinearOpMode {
     double highpos = 0.612;
     double wwallpos = 0.776;
     double clippos = 0.990;
-    double grabpos = 0.694;
+    double grabpos = 0.714;
 
     Servo claw;
     DcMotor bar;
@@ -61,27 +61,45 @@ public class AutoLeftRed extends LinearOpMode {
                 .addTemporalMarker(() -> {
                     clawClose();
                 })
-                .waitSeconds(1)
+//                .waitSeconds(0)
                 .splineToConstantHeading(new Vector2d(-5, -39),Math.toRadians(90)) //to front of clip
                 .addTemporalMarker(() -> {
                     clipDown();
                 }) //bar clippos
-                .waitSeconds(1)
+                .waitSeconds(0.55)
                 .splineToConstantHeading(new Vector2d(-5, -25),Math.toRadians(90)) // to lcip pos
                 .addTemporalMarker(() -> {
                     clipUp();
                 }) //bar upclippos,
-                .waitSeconds(1)
+                .waitSeconds(0.5)
                 .splineToConstantHeading(new Vector2d(-5, -34.5),Math.toRadians(90))
                 .addTemporalMarker(() -> {
                     clawOpen();
                 }) // claw open
-                .waitSeconds(1)
+                .waitSeconds(0.5)
                 .addTemporalMarker(() -> {
                     groundThing();
                 }) // bar ground
+                .waitSeconds(0.8)
+                .splineToSplineHeading(new Pose2d(-48, -32.75, Math.toRadians(90)), Math.toRadians(90)) // 1st neutral sample
+                .addTemporalMarker(() -> {
+                    clawClose();
+                }) // claw closed
+                .waitSeconds(0.1)
+                .splineToSplineHeading(new Pose2d(-50, -45, Math.toRadians(45)),Math.toRadians(90)) //to bucket
+                .addTemporalMarker(() -> {
+                    highBucket();
+                }) // Bar up and claw open
+                .waitSeconds(1.2)
+                .addTemporalMarker(() -> {
+                    clawOpen();
+                }) //openclaw
+                .waitSeconds(0.2)
+                .addTemporalMarker(() -> {
+                    groundThing();
+                }) //bar ground
                 .waitSeconds(1)
-                .splineToSplineHeading(new Pose2d(-48, -32, Math.toRadians(90)), Math.toRadians(90)) // 1st neutral sample
+                .splineToSplineHeading(new Pose2d(-59, -31.5, Math.toRadians(90)),Math.toRadians(135)) // 2nd neutral sample
                 .addTemporalMarker(() -> {
                     clawClose();
                 }) // claw closed
@@ -90,52 +108,23 @@ public class AutoLeftRed extends LinearOpMode {
                 .addTemporalMarker(() -> {
                     highBucket();
                 }) // Bar up and claw open
-                .waitSeconds(1)
+                .waitSeconds(1.2)
                 .addTemporalMarker(() -> {
                     clawOpen();
                 }) //openclaw
                 .waitSeconds(0.2)
                 .addTemporalMarker(() -> {
                     groundThing();
+
                 }) //bar ground
-                .waitSeconds(1)
-                .splineToSplineHeading(new Pose2d(-58, -32, Math.toRadians(90)),Math.toRadians(90)) // 2nd neutral sample
-                .addTemporalMarker(() -> {
-                    clawClose();
-                }) // claw closed
-                .waitSeconds(1)
-                .splineToSplineHeading(new Pose2d(-50, -45, Math.toRadians(45)),Math.toRadians(90)) //to bucket
-                .addTemporalMarker(() -> {
-                    highBucket();
-                }) // Bar up and claw open
-                .waitSeconds(1)
-                .addTemporalMarker(() -> {
-                    clawOpen();
-                }) //openclaw
                 .waitSeconds(0.2)
                 .addTemporalMarker(() -> {
-                    groundThing();
-                }) //bar ground
+                    wristServo.setPosition(0);
+
+                }) //clip up
                 .waitSeconds(1)
-                .splineToSplineHeading(new Pose2d(-57, -28, Math.toRadians(140)),Math.toRadians(90)) //3rd neutral sample
-                .addTemporalMarker(() -> {
-                    clawClose();
-                }) // claw closed
-                .waitSeconds(1)
-                .splineToSplineHeading(new Pose2d(-50, -45, Math.toRadians(45)),Math.toRadians(180)) //to bucket
-                .addTemporalMarker(() -> {
-                    highBucket();
-                }) // Bar up and claw open
-                .waitSeconds(1)
-                .addTemporalMarker(() -> {
-                    clawOpen();
-                }) //openclaw
-                .waitSeconds(0.2)
-                .addTemporalMarker(() -> {
-                    groundThing();
-                }) //bar ground
-                .waitSeconds(1)
-                .splineToSplineHeading(new Pose2d(-57, -37, Math.toRadians(0)),Math.toRadians(45))
+                .splineToLinearHeading(new Pose2d(40, -45, Math.toRadians(0)),Math.toRadians(45))
+                .splineToLinearHeading(new Pose2d(40, -50, Math.toRadians(0)),Math.toRadians(0))
                 .build();
 
         waitForStart();
