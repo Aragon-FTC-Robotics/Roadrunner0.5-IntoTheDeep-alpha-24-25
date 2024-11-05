@@ -23,7 +23,7 @@ public class MeepMeepTesting {
                         .waitSeconds(0.1)
                         .splineToSplineHeading(new Pose2d(-50, -45, Math.toRadians(45)),Math.toRadians(90)) //to bucket
                         .waitSeconds(0.5)
-                        .splineToSplineHeading(new Pose2d(-57, -32, Math.toRadians(90)),Math.toRadians(135)) // 2nd neutral sample
+                        .splineToSplineHeading(new Pose2d(-59, -33,Math.toRadians(90)), -10) // 2nd neutral sample
                         .waitSeconds(2)
                         .splineToSplineHeading(new Pose2d(-50, -45, Math.toRadians(45)),Math.toRadians(90)) //to bucket
                         .waitSeconds(2)

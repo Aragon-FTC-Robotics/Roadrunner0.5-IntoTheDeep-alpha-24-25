@@ -15,16 +15,16 @@ import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 
-@Autonomous(name="Goated Auto", group="Autopathred")
+@Autonomous(name="Boated Auto w/ BarNG \uD83C\uDFB2\uD83C\uDFB2", group="Autopathred")
 public class AutoLeftRed extends LinearOpMode {
     double openPos = 0.825;
     double closePos = 1;
 
     int parallelpos = -1200;
     int wallpos = -420;
-    int startpos = -150;
+    int startpos = -140;
     int clipposDOWN = -1400;
-    int clipposUP = -1250;
+    int clipposUP = -1200;
     int groundpos = -1750;
 
 
@@ -57,6 +57,9 @@ public class AutoLeftRed extends LinearOpMode {
         slideLeft = hardwareMap.get(DcMotor.class, "slideLeft");
         slideRight = hardwareMap.get(DcMotor.class, "slideRight");
         wristServo = hardwareMap.get(Servo.class, "wristServo");
+        bar.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        slideLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        slideRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         TrajectorySequence myTrajectory = drive.trajectorySequenceBuilder(startPose)
                 .addTemporalMarker(() -> {
                     clawClose();
@@ -81,12 +84,12 @@ public class AutoLeftRed extends LinearOpMode {
                     groundThing();
                 }) // bar ground
                 .waitSeconds(0.8)
-                .splineToSplineHeading(new Pose2d(-48, -32.75, Math.toRadians(90)), Math.toRadians(90)) // 1st neutral sample
+                .splineToSplineHeading(new Pose2d(-48, -32.65, Math.toRadians(90)), Math.toRadians(90)) // 1st neutral sample
                 .addTemporalMarker(() -> {
                     clawClose();
                 }) // claw closed
                 .waitSeconds(0.1)
-                .splineToSplineHeading(new Pose2d(-50.7, -45.7, Math.toRadians(45)),Math.toRadians(90)) //to bucket
+                .splineToSplineHeading(new Pose2d(-50, -46.7, Math.toRadians(45)),Math.toRadians(90)) //to bucket
                 .addTemporalMarker(() -> {
                     highBucket();
                 }) // Bar up and claw open
@@ -99,12 +102,12 @@ public class AutoLeftRed extends LinearOpMode {
                     groundThing();
                 }) //bar ground
                 .waitSeconds(1)
-                .splineToSplineHeading(new Pose2d(-59, -31.5, Math.toRadians(90)),Math.toRadians(135)) // 2nd neutral sample
+                .splineToSplineHeading(new Pose2d(-59, -33,Math.toRadians(90)), -10) // 2nd neutral sample
                 .addTemporalMarker(() -> {
                     clawClose();
                 }) // claw closed
                 .waitSeconds(0.6)
-                .splineToSplineHeading(new Pose2d(-50.7, -45.7, Math.toRadians(45)),Math.toRadians(90)) //to bucket
+                .splineToSplineHeading(new Pose2d(-50, -46.7, Math.toRadians(45)),Math.toRadians(90)) //to bucket
                 .addTemporalMarker(() -> {
                     highBucket();
                 }) // Bar up and claw open
@@ -137,10 +140,10 @@ public class AutoLeftRed extends LinearOpMode {
     public void clawOpen() {claw.setPosition(openPos);}
     public void barParallel() {bar.setTargetPosition(parallelpos);bar.setMode(DcMotor.RunMode.RUN_TO_POSITION);bar.setPower(0.6);}
     public void barWall() {bar.setTargetPosition(wallpos);bar.setMode(DcMotor.RunMode.RUN_TO_POSITION);bar.setPower(0.6);}
-    public void barStart() {bar.setTargetPosition(startpos);bar.setMode(DcMotor.RunMode.RUN_TO_POSITION);bar.setPower(0.6);}
+    public void barStart() {bar.setTargetPosition(startpos);bar.setMode(DcMotor.RunMode.RUN_TO_POSITION);bar.setPower(0.8);}
     public void barClipDown() {bar.setTargetPosition(clipposDOWN);bar.setMode(DcMotor.RunMode.RUN_TO_POSITION);bar.setPower(0.6);}
-    public void barClipUp() {bar.setTargetPosition(clipposUP);bar.setMode(DcMotor.RunMode.RUN_TO_POSITION);bar.setPower(0.6);}
-    public void barGround() {bar.setTargetPosition(groundpos);bar.setMode(DcMotor.RunMode.RUN_TO_POSITION);bar.setPower(0.6);}
+    public void barClipUp() {bar.setTargetPosition(clipposUP);bar.setMode(DcMotor.RunMode.RUN_TO_POSITION);bar.setPower(0.8);}
+    public void barGround() {bar.setTargetPosition(groundpos);bar.setMode(DcMotor.RunMode.RUN_TO_POSITION);bar.setPower(0.8);}
     public void slidesHigh(){
         slideLeft.setTargetPosition(highPos-10);
         slideRight.setTargetPosition(highPos);
